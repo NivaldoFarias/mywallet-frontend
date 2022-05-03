@@ -2,22 +2,22 @@
 <!-- PROJECT LOGO -->
 <br />
 <div align="center">
-  <a href="https://github.com/NivaldoFarias/projeto13-mywallet-front">
-    <img src="https://github.com/NivaldoFarias/projeto13-mywallet-front/blob/main/src/assets/logo.png" alt="Logo" width="100">
+  <a href="https://github.com/NivaldoFarias/mywallet-project-front">
+    <img src="src/assets/mywallet-logo.png" alt="Logo" width="110">
   </a>
 
-<h3 align="center">Zap! Recall Project</h3>
+<h3 align="center">MyWallet Project (Front-end)</h3>
   <h6 align="center">WIP</h6>
   <p align="center">
     Web Development Project using React and Sass
     <br />
-    <a href="https://github.com/NivaldoFarias/projeto13-mywallet-front/tree/main/src"><strong>JSX code»</strong></a>
+    <a href="https://github.com/NivaldoFarias/mywallet-project-front/tree/main/src"><strong>JSX code»</strong></a>
     -
-    <a href="https://github.com/NivaldoFarias/projeto13-mywallet-front/blob/main/src/index.scss"><strong>SCSS code»</strong></a>
+    <a href="https://github.com/NivaldoFarias/mywallet-project-front/blob/main/src/index.scss"><strong>SCSS code»</strong></a>
 </div>
 
-![Banner](https://github.com/NivaldoFarias/projeto13-mywallet-front/blob/main/src/assets/zaprecall-showroom.png?raw=true)
-
+<!-- ![Banner](https://github.com/NivaldoFarias/mywallet-project-front/blob/main/src/assets/zaprecall-showroom.png?raw=true)
+ -->
 <!-- ABOUT THE PROJECT -->
 
 <!--
