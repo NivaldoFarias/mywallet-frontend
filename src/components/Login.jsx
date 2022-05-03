@@ -30,7 +30,7 @@ function Login() {
     <main id="login-page">
       <figure>
         <img src={logo} alt="logo" />
-        <figcaption>TrackIt</figcaption>
+        <figcaption>MyWallet</figcaption>
       </figure>
       <form
         onSubmit={(e) => {
@@ -41,7 +41,7 @@ function Login() {
           }, getRandomInt(750, 2000));
         }}
       >
-        <section>
+        <div className="input-group">
           <input
             className={hasSubmitted ? "disabled" : ""}
             type="text"
@@ -53,8 +53,8 @@ function Login() {
           <span className="highlight"></span>
           <span className="bar"></span>
           <label>E-mail</label>
-        </section>
-        <section>
+        </div>
+        <div className="input-group">
           <input
             className={hasSubmitted ? "disabled" : ""}
             type="password"
@@ -66,7 +66,7 @@ function Login() {
           <span className="highlight"></span>
           <span className="bar"></span>
           <label>Senha</label>
-        </section>
+        </div>
         <button className={validateLogin()} type="submit">
           <p className={hasSubmitted ? "hidden" : ""}>Entrar</p>
           <div
