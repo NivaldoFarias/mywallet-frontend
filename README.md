@@ -6,7 +6,7 @@
     <img src="src/assets/mywallet-logo.png" alt="Logo" width="110">
   </a>
 
-<h3 align="center">MyWallet Project (Front-end)</h3>
+<h3 align="center">MyWallet Project | Frontend</h3>
   <h6 align="center">WIP</h6>
   <p align="center">
     Web Development Project using React and Sass
