@@ -39,7 +39,7 @@ function SignUp() {
             />
             <span className="highlight"></span>
             <span className="bar"></span>
-            <label>Nome</label>
+            <label>Name</label>
           </div>
           <div className="input-group">
             <input
@@ -63,11 +63,11 @@ function SignUp() {
             />
             <span className="highlight"></span>
             <span className="bar"></span>
-            <label>Senha</label>
+            <label>Password</label>
           </div>
           <div className="input-group">
             <input
-              type="text"
+              type="password"
               value={formData.image}
               name="image"
               onChange={handleInputChange}
@@ -75,12 +75,12 @@ function SignUp() {
             />
             <span className="highlight"></span>
             <span className="bar"></span>
-            <label>Avatar URL</label>
+            <label>Confirm Password</label>
           </div>
           <button className={validateForm} type="submit">
-            Cadastrar
+            Register
           </button>
-          <Link to="/">Já possui uma conta? Faça Login</Link>
+          <Link to="/">Already have an account? Login!</Link>
         </form>
       </>
     );
@@ -110,7 +110,9 @@ function SignUp() {
 
   return (
     <>
-      <main id="signup-page">{singupPage}</main>
+      <main id="signup-page" className="auth-pages">
+        {singupPage}
+      </main>
     </>
   );
 }

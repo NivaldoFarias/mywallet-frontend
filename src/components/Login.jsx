@@ -1,4 +1,4 @@
-import React, { useContext, useState, useEffect } from "react";
+import React, { useContext, useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { confirmAlert } from "react-confirm-alert";
 import axios from "axios";
@@ -140,7 +140,9 @@ function Login() {
 
   return (
     <>
-      <main id="login-page">{loginPage}</main>
+      <main id="login-page" className="auth-pages">
+        {loginPage}
+      </main>
     </>
   );
 }
