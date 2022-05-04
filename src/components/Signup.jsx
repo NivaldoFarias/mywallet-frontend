@@ -8,20 +8,12 @@ function SignUp() {
   const [formData, setFormData] = useState({
     name: "",
     email: "",
-    image: "",
     password: "",
+    passwordConfirm: "",
   });
   const navigate = useNavigate();
 
   function buildSignupPage() {
-    const validateForm =
-      formData.name?.length > 0 &&
-      formData.email?.length > 0 &&
-      formData.password?.length > 0 &&
-      formData.image?.length > 0
-        ? ""
-        : "disabled";
-
     return (
       <>
         <figure>
@@ -68,8 +60,8 @@ function SignUp() {
           <div className="input-group">
             <input
               type="password"
-              value={formData.image}
-              name="image"
+              value={formData.passwordConfirm}
+              name="passwordConfirm"
               onChange={handleInputChange}
               required
             />
@@ -77,18 +69,28 @@ function SignUp() {
             <span className="bar"></span>
             <label>Confirm Password</label>
           </div>
-          <button className={validateForm} type="submit">
+          <button className={validateForm()} type="submit">
             Register
           </button>
-          <Link to="/">Already have an account? Login!</Link>
+          <Link to="/">Already have an account? Sign in!</Link>
         </form>
       </>
     );
 
+    function validateForm() {
+      return formData.name?.length > 0 &&
+        formData.email?.length > 0 &&
+        formData.password?.length > 0 &&
+        formData.passwordConfirm?.length > 0 &&
+        formData.password === formData.passwordConfirm
+        ? ""
+        : "disabled";
+    }
+
     function handleSignUp(e) {
       e.preventDefault();
 
-      const promise = axios.post("localhost:5000/mywallet/auth/signup", {
+      const promise = axios.post("http://localhost:5000/mywallet/auth/signup", {
         name: formData.name,
         email: formData.email,
         password: formData.password,

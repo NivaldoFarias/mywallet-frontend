@@ -24,6 +24,7 @@ function Login() {
   }, []); */
 
   function buildLoginPage() {
+    console.log(data);
     return (
       <>
         <figure>
@@ -64,16 +65,16 @@ function Login() {
             />
             <span className="highlight"></span>
             <span className="bar"></span>
-            <label>Senha</label>
+            <label>Password</label>
           </div>
           <button className={validateLogin()} type="submit">
-            <p className={hasSubmitted ? "hidden" : ""}>Entrar</p>
+            <p className={hasSubmitted ? "hidden" : ""}>Sign In</p>
             <div
               id="loading-dots"
               className={hasSubmitted ? "dot-pulse" : "dot-pulse hidden"}
             ></div>
           </button>
-          <Link to="/signup">Não possui uma conta? Cadastre-se</Link>
+          <Link to="/signup">Not yet registered? Sign up!</Link>
         </form>
       </>
     );
@@ -91,14 +92,18 @@ function Login() {
     }
 
     function handleLogin() {
-      const promise = axios.post("localhost:5000/mywallet/auth/signup", {
+      const promise = axios.post("http://localhost:5000/mywallet/auth/signin", {
         email: loginData.email,
         password: loginData.password,
       });
 
       promise.then((response) => {
-        setData({ ...data, user: response.data, token: response.data.token });
-        navigate("/today");
+        setData({
+          ...data,
+          user: { name: response.data.name, email: response.data.email },
+          token: response.data.token,
+        });
+        navigate("/home");
       });
       promise.catch((error) => {
         confirmAlert({
