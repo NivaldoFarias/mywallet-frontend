@@ -24,7 +24,6 @@ function Login() {
   }, []); */
 
   function buildLoginPage() {
-    console.log(data);
     return (
       <>
         <figure>
