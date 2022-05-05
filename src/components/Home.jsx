@@ -1,6 +1,5 @@
 import React, { useContext, useEffect } from "react";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
 
 import { FaUser } from "react-icons/fa";
 import { IoExitSharp } from "react-icons/io5";
@@ -12,12 +11,16 @@ import DataContext from "./../hooks/DataContext";
 import logo from "./../assets/mywallet-logo.png";
 
 function Home() {
-  const URI = "http://localhost:5000/mywallet/transactions/all";
   const { data, setData } = useContext(DataContext);
-  const navigate = useNavigate();
+  const URI = "http://localhost:5000/api/transactions/all";
+  const CONFIG = {
+    headers: {
+      Authorization: `Bearer ${data.token}`,
+    },
+  };
 
   useEffect(() => {
-    const request = axios.get(URI);
+    const request = axios.get(URI, CONFIG);
     request
       .then((response) => {
         setData({ ...data, transactions: response.data });
