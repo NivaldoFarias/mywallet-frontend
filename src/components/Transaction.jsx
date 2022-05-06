@@ -2,46 +2,18 @@ import { CgArrowsExchangeAlt } from "react-icons/cg";
 import { GiReceiveMoney, GiPayMoney } from "react-icons/gi";
 import { AiOutlineInfoCircle } from "react-icons/ai";
 
+import Timeline from "./Timeline";
+
 function Transaction({ transaction, index }) {
-  let typeIcon = null;
-  switch (transaction.type) {
-    case "income":
-      typeIcon = (
-        <GiReceiveMoney className="transaction__header-icon income-icon" />
-      );
-      break;
-    case "expense":
-      typeIcon = (
-        <GiPayMoney className="transaction__header-icon expense-icon" />
-      );
-      break;
-    case "transfer":
-      typeIcon = (
-        <CgArrowsExchangeAlt className="transaction__header-icon transfer-icon" />
-      );
-      break;
-    default:
-      typeIcon = (
-        <AiOutlineInfoCircle className="transaction__header-icon info-icon" />
-      );
-      break;
-  }
   const date = new Date(transaction.date);
   const time = date.toLocaleTimeString("pt-BR").slice(0, 5);
   const day = date.toLocaleDateString("pt-BR").slice(0, 5);
 
-  function Timeline() {
-    return (
-      <div className="transaction__timeline">
-        <div className={index === 0 ? "line first-line " : "line"}></div>
-        <div className="circle"></div>
-      </div>
-    );
-  }
+  function buildTransaction() {
+    const typeIcon = transactionType();
 
-  return (
-    <>
-      <article className="transaction">
+    return (
+      <>
         <div className="transaction__header">
           {typeIcon}
           <div className="transaction__header-date">
@@ -49,7 +21,7 @@ function Transaction({ transaction, index }) {
             <div className="transaction__header-date__time">{time}</div>
           </div>
         </div>
-        <Timeline />
+        <Timeline index={index} />
         <div className="transaction__info">
           <div className="transaction__info__amount">
             <span>{transaction.amount}</span>
@@ -58,9 +30,34 @@ function Transaction({ transaction, index }) {
             <span>{transaction.description}</span>
           </div>
         </div>
-      </article>
-    </>
-  );
+      </>
+    );
+
+    function transactionType() {
+      switch (transaction.type) {
+        case "income":
+          return (
+            <GiReceiveMoney className="transaction__header-icon income-icon" />
+          );
+        case "expense":
+          return (
+            <GiPayMoney className="transaction__header-icon expense-icon" />
+          );
+        case "transfer":
+          return (
+            <CgArrowsExchangeAlt className="transaction__header-icon transfer-icon" />
+          );
+        default:
+          return (
+            <AiOutlineInfoCircle className="transaction__header-icon info-icon" />
+          );
+      }
+    }
+  }
+
+  const transactionBody = buildTransaction();
+
+  return <article className="transaction">{transactionBody}</article>;
 }
 
 export default Transaction;

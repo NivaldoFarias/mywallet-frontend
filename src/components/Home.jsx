@@ -21,7 +21,12 @@ function Home() {
     const request = axios.get(URI, CONFIG);
     request
       .then((response) => {
-        setData({ ...data, transactions: response.data });
+        setData({
+          ...data,
+          transactions: response.data,
+          lastIndex: response.data.length - 1,
+        });
+        setData({ ...data });
       })
       .catch((error) => {
         console.log(error);

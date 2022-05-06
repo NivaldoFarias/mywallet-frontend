@@ -282,6 +282,14 @@ svg {
         border-image: linear-gradient(to top, lightgray 60%, rgba(lightgray, 0))
           1 100%;
       }
+      .line.last-line {
+        border-image: linear-gradient(
+            to bottom,
+            lightgray 60%,
+            rgba(lightgray, 0)
+          )
+          1 100%;
+      }
     }
   }
 }
