@@ -2,6 +2,14 @@
 @import "./sass/resets";
 @import "./sass/mixins";
 
+svg {
+  &.user-icon {
+    font-size: 1.5em;
+  }
+  &.exit-icon {
+    font-size: 2.1em;
+  }
+}
 .auth-pages {
   @include flex(column, space-evenly, center, 40px);
   padding: 90px 36px;
@@ -169,16 +177,13 @@
   }
 }
 #home-page {
-  @include flex(column, space-evenly, center, 10px);
+  @include flex(column, initial, center, 10px);
   padding: 0 24px;
   height: 100vh;
   width: 100vw;
 
   background-color: $background;
 
-  * {
-    user-select: none;
-  }
   nav {
     @include flex(row, space-between, center, initial);
     height: 80px;
@@ -188,38 +193,96 @@
       @include flex(row, initial, center, 25px);
 
       img {
-        width: 45px;
+        width: 40px;
       }
       figcaption {
-        font-size: 1em;
+        width: max-content;
+        text-align: center;
+        font-size: 0.9em;
       }
     }
     .icons-container {
-      @include flex(row, space-evenly, center, initial);
+      @include flex(row, space-between, center, initial);
       height: 100%;
-      width: 100%;
+      width: 70px;
 
-      font-size: 1em;
+      color: black;
     }
   }
   footer {
     @include flex(row, space-evenly, center, initial);
-    height: 80px;
+    height: 100px;
     width: 100%;
   }
   .transactions-container {
-    @include flex(column, initial, center, 15px);
+    @include flex(column, initial, center, initial);
     padding: 15 10px;
-    height: 450px;
+    height: 100%;
     width: 100%;
 
     border-radius: 5px;
-    background-color: $alt-background;
+    background-color: white;
   }
-  .transacation {
-    @include flex(row, space-between, center, initial);
+  .transaction {
+    @include flex(row, space-between, center, 10px);
+    padding: 10px 15px;
     height: fit-content;
     width: 100%;
+
+    &__header {
+      @include flex(column, initial, center, 2px);
+      height: fit-content;
+      width: 60px;
+
+      &-icon {
+        font-size: 2.2em;
+      }
+      &-date {
+        @include flex(column, space-evenly, center, 5px);
+        width: 100%;
+        font-size: 0.7em;
+      }
+      &-date__time {
+        font-size: 0.8em;
+      }
+    }
+    &__info {
+      @include flex(column, center, flex-start, 10px);
+      height: fit-content;
+      width: 100%;
+
+      &__description {
+        font-size: 0.8em;
+      }
+    }
+    &__timeline {
+      @include flex(column, initial, center, initial);
+      position: relative;
+      height: 60px;
+      width: 50px;
+
+      .line {
+        position: absolute;
+        height: 85px;
+        border-right: 2px solid lightgray;
+      }
+      .circle {
+        position: absolute;
+        top: 20px;
+        left: 11.5px;
+
+        width: 12px;
+        height: 12px;
+
+        border-radius: 50%;
+        border: 2px solid lightgray;
+        background-color: white;
+      }
+      .line.first-line {
+        border-image: linear-gradient(to top, lightgray 60%, rgba(lightgray, 0))
+          1 100%;
+      }
+    }
   }
 }
 #loading-dots {

@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { confirmAlert } from "react-confirm-alert";
 import "react-confirm-alert/src/react-confirm-alert.css";
@@ -17,12 +17,12 @@ function Login() {
   const { data, setData } = useContext(DataContext);
   const navigate = useNavigate();
 
-  /* useEffect(() => {
-    if (data?.user !== null) {
-      navigate("/today");
+  useEffect(() => {
+    if (data?.token) {
+      navigate("/home");
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []); */
+  }, []);
 
   function buildLoginPage() {
     return (

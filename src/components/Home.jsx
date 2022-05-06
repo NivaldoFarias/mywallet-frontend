@@ -22,7 +22,6 @@ function Home() {
     request
       .then((response) => {
         setData({ ...data, transactions: response.data });
-        console.log(data.transactions);
       })
       .catch((error) => {
         console.log(error);
@@ -39,14 +38,18 @@ function Home() {
             <figcaption>Welcome, {data?.user.name}!</figcaption>
           </figure>
           <div className="icons-container">
-            <FaUser />
-            <IoExitSharp />
+            <FaUser className="user-icon" />
+            <IoExitSharp className="exit-icon" />
           </div>
         </nav>
         <section className="transactions-container">
-          {data?.transactions?.map((transaction) => {
+          {data.transactions?.map((transaction, index) => {
             return (
-              <Transaction key={transaction._id} transaction={transaction} />
+              <Transaction
+                key={transaction.transaction_id}
+                index={index}
+                transaction={transaction}
+              />
             );
           })}
         </section>
