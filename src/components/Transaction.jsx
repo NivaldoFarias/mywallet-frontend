@@ -5,12 +5,13 @@ import { AiOutlineInfoCircle } from "react-icons/ai";
 import Timeline from "./Timeline";
 
 function Transaction({ transaction, index }) {
+  const { type, amount, description } = transaction;
   const date = new Date(transaction.date);
   const time = date.toLocaleTimeString("pt-BR").slice(0, 5);
   const day = date.toLocaleDateString("pt-BR").slice(0, 5);
 
   function buildTransaction() {
-    const typeIcon = transactionType();
+    const typeIcon = transactionIcon();
 
     return (
       <>
@@ -23,18 +24,31 @@ function Transaction({ transaction, index }) {
         </div>
         <Timeline index={index} />
         <div className="transaction__info">
-          <div className="transaction__info__amount">
-            <span>{transaction.amount}</span>
+          <div className={`transaction__info__amount ${transactionType()}`}>
+            {value()}
           </div>
           <div className="transaction__info__description">
-            <span>{transaction.description}</span>
+            <span>{description}</span>
           </div>
         </div>
       </>
     );
 
+    function value() {
+      return `${amount > 0 ? "+" : ""}R$${amount
+        .toFixed(2)
+        .toString()
+        .replace(".", ",")}`;
+    }
+
     function transactionType() {
-      switch (transaction.type) {
+      if (type === "income" || type === "expense") {
+        return type;
+      }
+    }
+
+    function transactionIcon() {
+      switch (type) {
         case "income":
           return (
             <GiReceiveMoney className="transaction__header-icon income-icon" />

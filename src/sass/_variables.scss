@@ -11,15 +11,14 @@ $low-contrast: rgb(251, 133, 0);
 $high-contrast: rgb(255, 183, 3);
 $bar-primary: rgb(82, 100, 174);
 $btn-shadow-color: rgb(56, 42, 138);
-$dark-green: rgb(163, 216, 150);
-$regular-green: rgb(193, 226, 190);
-$light-green: rgb(214, 235, 195);
-$lighter-green: rgb(230, 248, 209);
-$btn-green: rgb(118, 185, 71);
-$btn-shadow-green: rgb(77, 152, 51);
-$success: rgb(118, 185, 71);
-$danger: rgb(255, 0, 0);
+
+$income-color: rgb(62, 224, 153);
+$expense-color: rgb(224, 62, 133);
+$balance-color: rgb(62, 214, 224);
 
 $default-box-shadow: -2px 7px 7px rgba(0, 0, 0, 0.15);
 $footer-box-shadow: 0px -7px 7px rgba(0, 0, 0, 0.15);
 $default-border-radius: 8px;
+
+$descriptive-font: "Varela Round", sans-serif;
+$lesser-info-color: rgb(177, 169, 191);

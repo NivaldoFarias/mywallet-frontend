@@ -182,6 +182,7 @@ svg {
   height: 100vh;
   width: 100vw;
 
+  font-family: $descriptive-font;
   background-color: $background;
 
   nav {
@@ -205,7 +206,6 @@ svg {
       @include flex(row, space-between, center, initial);
       height: 100%;
       width: 70px;
-
       color: black;
     }
   }
@@ -224,52 +224,70 @@ svg {
     background-color: white;
   }
   .transaction {
-    @include flex(row, space-between, center, 10px);
+    @include flex(row, initial, center, initial);
     padding: 10px 15px;
     height: fit-content;
     width: 100%;
 
     &__header {
-      @include flex(column, initial, center, 2px);
+      @include flex(column, initial, center, initial);
       height: fit-content;
       width: 60px;
 
       &-icon {
-        font-size: 2.2em;
+        font-size: 2.5em;
       }
       &-date {
         @include flex(column, space-evenly, center, 5px);
         width: 100%;
+
         font-size: 0.7em;
+        color: $lesser-info-color;
       }
       &-date__time {
         font-size: 0.8em;
       }
     }
     &__info {
-      @include flex(column, center, flex-start, 10px);
+      @include flex(column, center, flex-start, 5px);
       height: fit-content;
       width: 100%;
 
       &__description {
-        font-size: 0.8em;
+        font-size: 0.9em;
+        color: $lesser-info-color;
+      }
+      &__amount {
+        font-size: 1.1em;
+        font-weight: bold;
+      }
+      &__amount.income {
+        color: $income-color;
+      }
+      &__amount.expense {
+        color: $expense-color;
       }
     }
     &__timeline {
       @include flex(column, initial, center, initial);
       position: relative;
+
+      margin: 0 30px;
       height: 60px;
-      width: 50px;
+      width: 2px;
 
       .line {
         position: absolute;
+        top: -5px;
+        left: 0;
+
         height: 85px;
         border-right: 2px solid lightgray;
       }
       .circle {
         position: absolute;
-        top: 20px;
-        left: 11.5px;
+        top: 18px;
+        left: -5px;
 
         width: 12px;
         height: 12px;
