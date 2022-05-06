@@ -1,6 +1,7 @@
 import React, { useContext, useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { confirmAlert } from "react-confirm-alert";
+import "react-confirm-alert/src/react-confirm-alert.css";
 import axios from "axios";
 
 import getRandomInt from "./../utils/getRandomInt.js";
@@ -91,12 +92,12 @@ function Login() {
     }
 
     function handleLogin() {
-      const promise = axios.post("http://localhost:5000/mywallet/auth/signin", {
+      const request = axios.post("http://localhost:5000/api/auth/sign-in", {
         email: loginData.email,
         password: loginData.password,
       });
 
-      promise.then((response) => {
+      request.then((response) => {
         setData({
           ...data,
           user: { name: response.data.name, email: response.data.email },
@@ -104,9 +105,9 @@ function Login() {
         });
         navigate("/home");
       });
-      promise.catch((error) => {
+      request.catch((error) => {
         confirmAlert({
-          message: `${error.response.data.message} Por favor, tente novamente.`,
+          message: `${error.response.data.message}, please try again.`,
           buttons: [
             {
               label: "OK",
