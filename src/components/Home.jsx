@@ -10,29 +10,46 @@ import logo from "./../assets/mywallet-logo.png";
 
 function Home() {
   const { data, setData } = useContext(DataContext);
-  const URI = "http://localhost:5000/api/transactions";
   const CONFIG = {
     headers: {
       Authorization: `Bearer ${data.token}`,
     },
   };
 
-  useEffect(() => {
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  useEffect(transactionRequest, []);
+
+  function transactionRequest() {
+    const URI = "http://localhost:5000/api/transactions";
     const request = axios.get(URI, CONFIG);
     request
       .then((response) => {
-        console.log(response);
         setData({
           ...data,
-          transactions: response.data,
+          transactions: response.data.reverse(),
           lastIndex: response.data.length - 1,
+        });
+        balanceRequest();
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }
+
+  function balanceRequest() {
+    const URI = "http://localhost:5000/api/users/balance";
+    const request = axios.get(URI, CONFIG);
+    request
+      .then((response) => {
+        setData({
+          ...data,
+          balance: response.data.balance.toFixed(2),
         });
       })
       .catch((error) => {
         console.log(error);
       });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }
 
   function buildHomePage() {
     return (
@@ -47,16 +64,25 @@ function Home() {
             <IoExitSharp className="exit-icon" />
           </div>
         </nav>
-        <section className="transactions-container">
-          {data.transactions?.map((transaction, index) => {
-            return (
-              <Transaction
-                key={transaction._id}
-                index={index}
-                transaction={transaction}
-              />
-            );
-          })}
+        <section className="background-container">
+          <div className="transactions-container">
+            {data.transactions?.map((transaction, index) => {
+              return (
+                <Transaction
+                  key={transaction._id}
+                  index={index}
+                  transaction={transaction}
+                />
+              );
+            })}
+          </div>
+          <div className="balance-container">
+            <div className="balance-container__title">Balance</div>
+            <div className="balance-container__balance">
+              <span>R$</span>
+              {data.balance.toString().replace(".", ",")}
+            </div>
+          </div>
         </section>
         <footer>
           <div className="action-container">entrada</div>

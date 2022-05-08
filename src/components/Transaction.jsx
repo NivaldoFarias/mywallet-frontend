@@ -1,5 +1,6 @@
 import { CgArrowsExchangeAlt } from "react-icons/cg";
-import { GiReceiveMoney, GiPayMoney } from "react-icons/gi";
+import { GoCreditCard } from "react-icons/go";
+import { BsCashStack } from "react-icons/bs";
 
 import Timeline from "./Timeline";
 
@@ -34,7 +35,7 @@ function Transaction({ transaction, index }) {
     );
 
     function value() {
-      return `${amount > 0 ? "+" : "-"}R$${amount
+      return `${type === "deposit" ? "+" : "-"}R$${amount
         .toFixed(2)
         .toString()
         .replace(".", ",")}`;
@@ -48,11 +49,11 @@ function Transaction({ transaction, index }) {
       switch (type) {
         case "deposit":
           return (
-            <GiReceiveMoney className="transaction__header-icon deposit-icon" />
+            <GoCreditCard className="transaction__header-icon deposit-icon" />
           );
         case "withdrawal":
           return (
-            <GiPayMoney className="transaction__header-icon withdrawal-icon" />
+            <BsCashStack className="transaction__header-icon withdrawal-icon" />
           );
         default:
           return (

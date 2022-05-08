@@ -9,6 +9,9 @@ svg {
   &.exit-icon {
     font-size: 2.1em;
   }
+  &.transfer-icon {
+    font-size: 2.2em !important;
+  }
 }
 .auth-pages {
   @include flex(column, space-evenly, center, 40px);
@@ -214,13 +217,24 @@ svg {
     height: 100px;
     width: 100%;
   }
+  .background-container {
+    position: relative;
+    padding-bottom: 30px;
+    height: 700px;
+    width: 100%;
+
+    border-radius: 5px;
+    background-color: white;
+  }
   .transactions-container {
     @include flex(column, initial, center, initial);
-    padding: 15 10px;
+    position: relative;
+
+    padding: 0 5px;
     height: 100%;
     width: 100%;
 
-    overflow-y: hidden;
+    overflow: auto;
 
     border-radius: 5px;
     background-color: white;
@@ -234,10 +248,10 @@ svg {
     &__header {
       @include flex(column, initial, center, 5px);
       height: fit-content;
-      width: 60px;
+      width: 80px;
 
       &-icon {
-        font-size: 2em;
+        font-size: 1.8em;
       }
       &-date {
         @include flex(column, space-evenly, center, 5px);
@@ -252,11 +266,15 @@ svg {
     }
     &__info {
       @include flex(column, center, flex-start, 5px);
-      height: fit-content;
+      max-height: 85px;
       width: 100%;
 
       &__description {
-        font-size: 0.9em;
+        height: 100%;
+        width: 100%;
+
+        word-wrap: break-word;
+        font-size: 0.8em;
         color: $lesser-info-color;
       }
       &__amount {
@@ -283,7 +301,7 @@ svg {
         top: -5px;
         left: 0;
 
-        height: 85px;
+        height: 90px;
         border-right: 2px solid lightgray;
       }
       .circle {
@@ -299,16 +317,40 @@ svg {
         background-color: white;
       }
       .line.first-line {
-        border-image: linear-gradient(to top, lightgray 60%, rgba(lightgray, 0))
+        border-image: linear-gradient(to top, lightgray 40%, rgba(lightgray, 0))
           1 100%;
       }
       .line.last-line {
         border-image: linear-gradient(
             to bottom,
-            lightgray 60%,
+            lightgray 2%,
             rgba(lightgray, 0)
           )
           1 100%;
+      }
+    }
+  }
+  .balance-container {
+    @include flex(row, space-between, flex-end, initial);
+    position: absolute;
+    bottom: 0;
+    left: 0;
+
+    padding: 0 15px 10px;
+    height: 50px;
+    width: 100%;
+
+    font-size: 1.4em;
+    box-shadow: $footer-box-shadow;
+    border-radius: 5px;
+    background-color: white;
+
+    &__balance {
+      font-weight: 300;
+      color: $balance-color;
+
+      span {
+        font-size: 0.8em;
       }
     }
   }
