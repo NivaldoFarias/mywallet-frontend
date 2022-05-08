@@ -1,13 +1,13 @@
-@import "./sass/variables";
 @import "./sass/resets";
+@import "./sass/variables";
 @import "./sass/mixins";
 
 svg {
-  &.user-icon {
-    font-size: 1.5em;
+  &.users-icon {
+    font-size: 2.5em;
   }
   &.exit-icon {
-    font-size: 2.1em;
+    font-size: 2em;
   }
   &.transfer-icon {
     font-size: 2.2em !important;
@@ -180,36 +180,38 @@ svg {
   }
 }
 #home-page {
-  @include flex(column, initial, center, 10px);
+  @include flex(column, space-evenly, center, initial);
   padding: 0 24px;
   height: 100vh;
   width: 100vw;
 
   font-family: $descriptive-font;
+  color: $dark-primary;
   background-color: $background;
 
   nav {
     @include flex(row, space-between, center, initial);
-    height: 80px;
+    height: 40px;
     width: 100%;
 
     figure {
-      @include flex(row, initial, center, 25px);
+      @include flex(row, initial, center, 15px);
 
       img {
         width: 40px;
       }
       figcaption {
+        padding-top: 10px;
         width: max-content;
         text-align: center;
-        font-size: 0.9em;
+        font-size: 1.1em;
       }
     }
     .icons-container {
-      @include flex(row, space-between, center, initial);
+      @include flex(row, center, center, 15px);
+      padding-top: 3px;
       height: 100%;
-      width: 70px;
-      color: black;
+      width: 100px;
     }
   }
   footer {
@@ -219,12 +221,12 @@ svg {
   }
   .background-container {
     position: relative;
-    padding-bottom: 30px;
-    height: 700px;
+    padding-bottom: 40px;
+    height: 620px;
     width: 100%;
 
     border-radius: 5px;
-    background-color: white;
+    background-color: $alt-background;
   }
   .transactions-container {
     @include flex(column, initial, center, initial);
@@ -237,7 +239,6 @@ svg {
     overflow: auto;
 
     border-radius: 5px;
-    background-color: white;
   }
   .transaction {
     @include flex(row, initial, center, initial);
@@ -298,7 +299,7 @@ svg {
 
       .line {
         position: absolute;
-        top: -5px;
+        top: -10px;
         left: 0;
 
         height: 90px;
@@ -306,7 +307,7 @@ svg {
       }
       .circle {
         position: absolute;
-        top: 18px;
+        top: 16px;
         left: -5px;
 
         width: 12px;
@@ -331,28 +332,88 @@ svg {
     }
   }
   .balance-container {
-    @include flex(row, space-between, flex-end, initial);
+    @include flex(initial, center, center, initial);
     position: absolute;
     bottom: 0;
     left: 0;
 
-    padding: 0 15px 10px;
+    padding-top: 6px;
     height: 50px;
     width: 100%;
 
-    font-size: 1.4em;
+    font-size: 1.9em;
     box-shadow: $footer-box-shadow;
-    border-radius: 5px;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
     background-color: white;
 
     &__balance {
+      letter-spacing: 2px;
       font-weight: 300;
-      color: $balance-color;
+      color: $primary;
 
       span {
         font-size: 0.8em;
       }
     }
+  }
+  .action-container {
+    @include flex(row, space-evenly, center, initial);
+    position: relative;
+    height: 80px;
+    width: 100%;
+
+    border-radius: 5px;
+    background-color: $primary;
+
+    button {
+      @include flex(initial, center, center, initial);
+      height: 80px;
+      width: 80px;
+
+      font-size: 1.1em;
+      font-weight: bold;
+      color: white !important;
+
+      border: none;
+      outline: none;
+      cursor: pointer;
+      appearance: none;
+      background-color: transparent;
+    }
+    &__transfer {
+      height: 100px !important;
+      width: 100px !important;
+
+      border: 3px solid white !important;
+      border-radius: 50%;
+      background-color: $primary !important;
+    }
+  }
+}
+.modal-portal {
+  position: relative;
+  .modal {
+    position: absolute;
+    top: 40px;
+    left: 40px;
+    right: 40px;
+    bottom: 40px;
+
+    padding: 20px;
+
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    outline: none;
+    overflow: hidden;
+  }
+  .overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(255, 255, 255, 0.75);
   }
 }
 #loading-dots {

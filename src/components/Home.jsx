@@ -1,9 +1,10 @@
 import React, { useContext, useEffect } from "react";
+import { MdOutlineGroups } from "react-icons/md";
+import { IoExitOutline } from "react-icons/io5";
 import axios from "axios";
-import { FaUser } from "react-icons/fa";
-import { IoExitSharp } from "react-icons/io5";
 
 import Transaction from "./Transaction";
+import Actions from "./Actions";
 
 import DataContext from "./../hooks/DataContext";
 import logo from "./../assets/mywallet-logo.png";
@@ -52,6 +53,10 @@ function Home() {
   }
 
   function buildHomePage() {
+    const balance = data.balance.toString().replace(".", ",").split("");
+    const amount = balance.slice(0, 3).join("");
+    const cents = balance.slice(3, 5).join("");
+
     return (
       <>
         <nav>
@@ -60,8 +65,8 @@ function Home() {
             <figcaption>Welcome, {data.user?.name}!</figcaption>
           </figure>
           <div className="icons-container">
-            <FaUser className="user-icon" />
-            <IoExitSharp className="exit-icon" />
+            <MdOutlineGroups className="users-icon" />
+            <IoExitOutline className="exit-icon" />
           </div>
         </nav>
         <section className="background-container">
@@ -77,17 +82,14 @@ function Home() {
             })}
           </div>
           <div className="balance-container">
-            <div className="balance-container__title">Balance</div>
             <div className="balance-container__balance">
               <span>R$</span>
-              {data.balance.toString().replace(".", ",")}
+              {amount}
+              <span>{cents}</span>
             </div>
           </div>
         </section>
-        <footer>
-          <div className="action-container">entrada</div>
-          <div className="action-container">saída</div>
-        </footer>
+        <Actions></Actions>
       </>
     );
   }
