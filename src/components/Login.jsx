@@ -19,7 +19,7 @@ function Login() {
 
   useEffect(() => {
     if (data?.token) {
-      navigate("/home");
+      //navigate("/home");
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);

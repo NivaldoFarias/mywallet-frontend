@@ -10,7 +10,7 @@ import logo from "./../assets/mywallet-logo.png";
 
 function Home() {
   const { data, setData } = useContext(DataContext);
-  const URI = "http://localhost:5000/api/transactions/all";
+  const URI = "http://localhost:5000/api/transactions";
   const CONFIG = {
     headers: {
       Authorization: `Bearer ${data.token}`,
@@ -21,12 +21,12 @@ function Home() {
     const request = axios.get(URI, CONFIG);
     request
       .then((response) => {
+        console.log(response);
         setData({
           ...data,
           transactions: response.data,
           lastIndex: response.data.length - 1,
         });
-        setData({ ...data });
       })
       .catch((error) => {
         console.log(error);
@@ -40,7 +40,7 @@ function Home() {
         <nav>
           <figure>
             <img src={logo} alt="logo" />
-            <figcaption>Welcome, {data?.user.name}!</figcaption>
+            <figcaption>Welcome, {data.user?.name}!</figcaption>
           </figure>
           <div className="icons-container">
             <FaUser className="user-icon" />
@@ -51,7 +51,7 @@ function Home() {
           {data.transactions?.map((transaction, index) => {
             return (
               <Transaction
-                key={transaction.transaction_id}
+                key={transaction._id}
                 index={index}
                 transaction={transaction}
               />

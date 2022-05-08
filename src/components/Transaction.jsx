@@ -1,6 +1,5 @@
 import { CgArrowsExchangeAlt } from "react-icons/cg";
 import { GiReceiveMoney, GiPayMoney } from "react-icons/gi";
-import { AiOutlineInfoCircle } from "react-icons/ai";
 
 import Timeline from "./Timeline";
 
@@ -35,35 +34,29 @@ function Transaction({ transaction, index }) {
     );
 
     function value() {
-      return `${amount > 0 ? "+" : ""}R$${amount
+      return `${amount > 0 ? "+" : "-"}R$${amount
         .toFixed(2)
         .toString()
         .replace(".", ",")}`;
     }
 
     function transactionType() {
-      if (type === "income" || type === "expense") {
-        return type;
-      }
+      return type === "withdrawal" || "deposit" ? type : "transfer";
     }
 
     function transactionIcon() {
       switch (type) {
-        case "income":
+        case "deposit":
           return (
-            <GiReceiveMoney className="transaction__header-icon income-icon" />
+            <GiReceiveMoney className="transaction__header-icon deposit-icon" />
           );
-        case "expense":
+        case "withdrawal":
           return (
-            <GiPayMoney className="transaction__header-icon expense-icon" />
-          );
-        case "transfer":
-          return (
-            <CgArrowsExchangeAlt className="transaction__header-icon transfer-icon" />
+            <GiPayMoney className="transaction__header-icon withdrawal-icon" />
           );
         default:
           return (
-            <AiOutlineInfoCircle className="transaction__header-icon info-icon" />
+            <CgArrowsExchangeAlt className="transaction__header-icon transfer-icon" />
           );
       }
     }

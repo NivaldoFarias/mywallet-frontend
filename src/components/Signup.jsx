@@ -90,7 +90,7 @@ function SignUp() {
     function handleSignUp(e) {
       e.preventDefault();
 
-      const promise = axios.post("http://localhost:5000/mywallet/auth/signup", {
+      const promise = axios.post("http://localhost:5000/api/auth/sign-up", {
         name: formData.name,
         email: formData.email,
         password: formData.password,

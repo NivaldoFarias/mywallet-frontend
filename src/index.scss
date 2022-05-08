@@ -220,6 +220,8 @@ svg {
     height: 100%;
     width: 100%;
 
+    overflow-y: hidden;
+
     border-radius: 5px;
     background-color: white;
   }
@@ -230,12 +232,12 @@ svg {
     width: 100%;
 
     &__header {
-      @include flex(column, initial, center, initial);
+      @include flex(column, initial, center, 5px);
       height: fit-content;
       width: 60px;
 
       &-icon {
-        font-size: 2.5em;
+        font-size: 2em;
       }
       &-date {
         @include flex(column, space-evenly, center, 5px);
@@ -261,11 +263,11 @@ svg {
         font-size: 1.1em;
         font-weight: bold;
       }
-      &__amount.income {
-        color: $income-color;
+      &__amount.deposit {
+        color: $deposit-color;
       }
-      &__amount.expense {
-        color: $expense-color;
+      &__amount.withdrawal {
+        color: $withdrawal-color;
       }
     }
     &__timeline {
