@@ -1,4 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { MdOutlineGroups, MdOutlinePerson } from "react-icons/md";
 import { IoExitOutline, IoCloseSharp } from "react-icons/io5";
 import Modal from "react-modal";
@@ -21,6 +22,8 @@ function Home() {
     },
   };
 
+  const navigate = useNavigate();
+
   // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(transactionRequest, [data.update]);
 
@@ -34,7 +37,6 @@ function Home() {
           ...data,
           lastIndex: response.data.length - 1,
         });
-
         balanceRequest();
       })
       .catch((error) => {
@@ -51,6 +53,7 @@ function Home() {
           ...data,
           balance: response.data.balance.toFixed(2),
         });
+        usersRequest();
       })
       .catch((error) => {
         console.log(error);
@@ -72,7 +75,7 @@ function Home() {
   function buildHomePage() {
     let amount = null;
     let cents = null;
-    const balance = data.balance.toString().replace(".", ",").split("");
+    const balance = data.balance?.toString().replace(".", ",").split("");
     if (data.balance * 1 === 0) {
       amount = "0,";
       cents = "00";
@@ -90,7 +93,7 @@ function Home() {
           </figure>
           <div className="icons-container">
             <MdOutlineGroups className="users-icon" onClick={openModal} />
-            <IoExitOutline className="exit-icon" />
+            <IoExitOutline className="exit-icon" onClick={requestSignOff} />
           </div>
           <Modal
             className="users-modal"
@@ -105,8 +108,19 @@ function Home() {
               {users.map((user) => {
                 return (
                   <figure key={user.email} className="user-container">
-                    <MdOutlinePerson />
-                    <p>{user.name}</p>
+                    <MdOutlinePerson
+                      className={
+                        user.name === data.user.name
+                          ? "self-icon user-icon"
+                          : "user-icon"
+                      }
+                    />
+                    <div className="user-container__info">
+                      <p className="user-container__info__name">{user.name}</p>
+                      <p className="user-container__info__email">
+                        {user.email}
+                      </p>
+                    </div>
                   </figure>
                 );
               })}
@@ -145,6 +159,23 @@ function Home() {
         <Actions></Actions>
       </>
     );
+
+    function requestSignOff() {
+      const URI = "http://localhost:5000/api/users/sign-off";
+      const request = axios.post(URI, {}, CONFIG);
+      request
+        .then(() => {
+          setData({
+            ...data,
+            token: null,
+            balance: null,
+          });
+          navigate("/");
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    }
 
     function openModal() {
       setIsOpen(true);

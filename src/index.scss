@@ -221,6 +221,78 @@ svg {
     background-color: rgba(255, 255, 255, 0.75);
   }
 }
+.users-modal-portal {
+  position: relative;
+  .users-modal {
+    @include flex(column, center, center, 15px);
+    position: absolute;
+    top: 25%;
+    left: 20px;
+    right: 20px;
+
+    padding: 30px 20px;
+    min-height: fit-content;
+    max-width: 100%;
+
+    font-family: $descriptive-font;
+    color: $primary;
+
+    outline: none;
+    overflow: hidden;
+    border-radius: 5px;
+    border: 1px solid rgb(204, 204, 204);
+    background-color: $background;
+
+    .close-modal-btn {
+      position: absolute;
+      top: 8px;
+      right: 8px;
+      font-size: 1.6em;
+      cursor: pointer;
+
+      * {
+        pointer-events: none;
+      }
+    }
+  }
+  .users-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(255, 255, 255, 0.75);
+  }
+  .users-container {
+    @include flex(column, center, flex-start, 15px);
+
+    height: fit-content;
+    width: 100%;
+
+    .user-container {
+      @include flex(row, center, center, 10px);
+
+      &__info {
+        @include flex(column, center, flex-start, 5px);
+        font-size: 0.8em;
+
+        &__name {
+          font-weight: bold;
+          font-size: 1.2em;
+        }
+        &__email {
+          font-size: 1em;
+        }
+      }
+    }
+    .user-icon {
+      font-size: 2.1em;
+    }
+    .self-icon {
+      color: $secondary;
+    }
+  }
+}
 #home-page {
   @include flex(column, space-evenly, center, initial);
   padding: 0 24px;
