@@ -11,13 +11,16 @@ import { IoCloseSharp } from "react-icons/io5";
 import { RiErrorWarningLine } from "react-icons/ri";
 
 import DataContext from "./../hooks/DataContext";
+import EditTransfer from "./EditTransfer";
+import EditTransaction from "./EditTransaction";
 import Timeline from "./Timeline";
 
-function Transaction({ transaction, index, lastIndex, _id }) {
+function Transaction({ transaction, index, lastIndex }) {
   const [btnPress, setBtnPress] = useState(false);
+  const [editorIsOpen, setOpenEditor] = useState(false);
   const [modalIsOpen, setIsOpen] = useState(false);
 
-  const { data } = useContext(DataContext);
+  const { data, setData } = useContext(DataContext);
 
   const { type, amount, description } = transaction;
   const date = new Date(transaction.date);
@@ -41,8 +44,8 @@ function Transaction({ transaction, index, lastIndex, _id }) {
           <div className={`transaction__info__amount ${transactionType()}`}>
             {value()}
           </div>
-          <div className="transaction__info__description">
-            <span>{description}</span>
+          <div className="transaction__info__description" onClick={openEditor}>
+            {description}
           </div>
         </div>
         <IoCloseSharp className="transaction__delete-btn" onClick={openModal} />
@@ -66,6 +69,29 @@ function Transaction({ transaction, index, lastIndex, _id }) {
             <p>Yes, I am sure</p>
           </button>
         </Modal>
+        <Modal
+          className="modal"
+          portalClassName="modal-portal"
+          overlayClassName="overlay"
+          isOpen={editorIsOpen}
+          onRequestClose={closeEditor}
+          ariaHideApp={false}
+        >
+          <IoCloseSharp className="close-modal-btn" onClick={closeEditor} />
+          {!transaction.type ? (
+            <EditTransfer
+              closeModal={closeEditor}
+              id={transaction._id}
+              targetEmail={transaction.to}
+            />
+          ) : (
+            <EditTransaction
+              closeModal={closeEditor}
+              type={transaction.type}
+              id={transaction._id}
+            />
+          )}
+        </Modal>
       </>
     );
 
@@ -76,16 +102,36 @@ function Transaction({ transaction, index, lastIndex, _id }) {
     }
 
     function openModal() {
-      setIsOpen(true);
+      if (transaction.from === data.user.email || !transaction.from)
+        setIsOpen(true);
+      else {
+        confirmAlert({
+          message: `This transaction cannot be modified. Please try again by choosing one that was sent by you.`,
+          buttons: [
+            {
+              label: "OK",
+              onClick: () => null,
+            },
+          ],
+        });
+      }
     }
 
     function closeModal() {
       setIsOpen(false);
     }
 
+    function openEditor() {
+      setOpenEditor(true);
+    }
+
+    function closeEditor() {
+      setOpenEditor(false);
+    }
+
     function value() {
       return `${type === "deposit" ? "+" : "-"}R$${amount
-        .toFixed(2)
+        ?.toFixed(2)
         .toString()
         .replace(".", ",")}`;
     }
@@ -112,22 +158,23 @@ function Transaction({ transaction, index, lastIndex, _id }) {
     }
 
     function requestDelete() {
-      const body = {
-        transactionId: _id,
-      };
+      let URI = null;
+      if (transaction.type) {
+        URI = `http://localhost:5000/api/transactions/delete/${transaction._id}`;
+      } else {
+        URI = `http://localhost:5000/api/transfers/delete/${transaction._id}`;
+      }
+
       const config = {
         headers: {
           Authorization: `Bearer ${data.token}`,
         },
       };
-      const request = axios.delete(
-        "http://localhost:5000/api/transactions/delete",
-        body,
-        config
-      );
+      const request = axios.delete(URI, config);
       request
         .then((_res) => {
           closeModal();
+          setData({ ...data, update: !data.update });
         })
         .catch((error) => {
           confirmAlert({
