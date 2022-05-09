@@ -7,7 +7,7 @@ import DataContext from "./../../hooks/DataContext";
 import isNumber from "./../../utils/isNumber";
 import getRandomInt from "./../../utils/getRandomInt";
 
-function Transfer({ closeModal }) {
+function Withdrawal({ closeModal }) {
   const [withdrawalData, setWithdrawalData] = useState({
     amount: "",
     description: "",
@@ -22,7 +22,7 @@ function Transfer({ closeModal }) {
         e.preventDefault();
         setHasSubmitted(true);
         setTimeout(() => {
-          handleTransfer();
+          handleWithdrawal();
         }, getRandomInt(750, 2000));
       }}
     >
@@ -45,6 +45,7 @@ function Transfer({ closeModal }) {
           className={hasSubmitted ? "disabled" : ""}
           type="description"
           value={withdrawalData.description}
+          maxLength="30"
           name="description"
           onChange={handleInputChange}
           required
@@ -77,7 +78,7 @@ function Transfer({ closeModal }) {
     setWithdrawalData({ ...withdrawalData, [e.target.name]: e.target.value });
   }
 
-  function handleTransfer() {
+  function handleWithdrawal() {
     const body = {
       type: "withdrawal",
       description: withdrawalData.description,
@@ -94,13 +95,13 @@ function Transfer({ closeModal }) {
       config
     );
     request
-      .then(() => {
+      .then((_res) => {
         closeModal();
         setData({ ...data, update: !data.update });
       })
       .catch((error) => {
         confirmAlert({
-          message: `${error.response.data.message}. Please try again.`,
+          message: `${error.response?.data.message}. Please try again.`,
           buttons: [
             {
               label: "OK",
@@ -121,4 +122,4 @@ function Transfer({ closeModal }) {
   }
 }
 
-export default Transfer;
+export default Withdrawal;

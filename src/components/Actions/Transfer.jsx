@@ -47,6 +47,7 @@ function Transfer({ closeModal }) {
           type="description"
           value={transferData.description}
           name="description"
+          maxLength="30"
           onChange={handleInputChange}
           required
         />

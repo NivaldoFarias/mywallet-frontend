@@ -13,8 +13,9 @@ import logo from "./../assets/mywallet-logo.png";
 
 function Home() {
   const [modalIsOpen, setIsOpen] = useState(false);
-  const [current, setCurrent] = useState(0);
+  const [current, setCurrent] = useState([]);
   const [users, setUsers] = useState([]);
+  const [lastIndex, setlastIndex] = useState(null);
   const { data, setData } = useContext(DataContext);
   const CONFIG = {
     headers: {
@@ -33,10 +34,7 @@ function Home() {
     request
       .then((response) => {
         setCurrent(response.data.reverse());
-        setData({
-          ...data,
-          lastIndex: response.data.length - 1,
-        });
+        setlastIndex(response.data.length - 1);
         balanceRequest();
       })
       .catch((error) => {
@@ -75,13 +73,15 @@ function Home() {
   function buildHomePage() {
     let amount = null;
     let cents = null;
-    const balance = data.balance?.toString().replace(".", ",").split("");
-    if (data.balance * 1 === 0) {
-      amount = "0,";
-      cents = "00";
-    } else {
-      amount = balance.slice(0, 3).join("");
-      cents = balance.slice(3, 5).join("");
+    const balance = data.balance?.toString().split(".");
+    if (balance) {
+      if (data.balance * 1 === 0) {
+        amount = "0,";
+        cents = "00";
+      } else {
+        amount = balance[0];
+        cents = `,${balance[1]}`;
+      }
     }
 
     return (
@@ -105,12 +105,12 @@ function Home() {
           >
             <IoCloseSharp className="close-modal-btn" onClick={closeModal} />
             <div className="users-container">
-              {users.map((user) => {
+              {users?.map((user) => {
                 return (
                   <figure key={user.email} className="user-container">
                     <MdOutlinePerson
                       className={
-                        user.name === data.user.name
+                        user?.name === data.user?.name
                           ? "self-icon user-icon"
                           : "user-icon"
                       }
@@ -135,6 +135,7 @@ function Home() {
                   <Transaction
                     key={transaction._id}
                     index={index}
+                    lastIndex={lastIndex}
                     transaction={transaction}
                   />
                 );
@@ -167,8 +168,10 @@ function Home() {
         .then(() => {
           setData({
             ...data,
+            user: null,
             token: null,
             balance: null,
+            lastIndex: null,
           });
           navigate("/");
         })

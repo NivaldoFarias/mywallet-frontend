@@ -7,7 +7,7 @@ import DataContext from "./../../hooks/DataContext";
 import isNumber from "./../../utils/isNumber";
 import getRandomInt from "./../../utils/getRandomInt";
 
-function Transfer({ closeModal }) {
+function Deposit({ closeModal }) {
   const [depositData, setDepositData] = useState({
     amount: "",
     description: "",
@@ -47,6 +47,7 @@ function Transfer({ closeModal }) {
           value={depositData.description}
           name="description"
           onChange={handleInputChange}
+          maxLength="30"
           required
         />
         <span className="highlight"></span>
@@ -65,7 +66,6 @@ function Transfer({ closeModal }) {
 
   function validateData() {
     return depositData.amount?.length > 0 &&
-      depositData.amount * 1 <= data.balance &&
       isNumber(depositData.amount * 1) &&
       depositData.description?.length > 0 &&
       !hasSubmitted
@@ -94,13 +94,13 @@ function Transfer({ closeModal }) {
       config
     );
     request
-      .then(() => {
+      .then((_res) => {
         closeModal();
         setData({ ...data, update: !data.update });
       })
       .catch((error) => {
         confirmAlert({
-          message: `${error.response.data.message}. Please try again.`,
+          message: `${error.response?.data.message}. Please try again.`,
           buttons: [
             {
               label: "OK",
@@ -121,4 +121,4 @@ function Transfer({ closeModal }) {
   }
 }
 
-export default Transfer;
+export default Deposit;

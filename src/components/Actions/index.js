@@ -56,11 +56,11 @@ function Actions() {
   function switchActions() {
     switch (action) {
       case "transfer":
-        return <Transfer onClick={closeModal} />;
+        return <Transfer closeModal={closeModal} />;
       case "deposit":
-        return <Deposit onClick={closeModal} />;
+        return <Deposit closeModal={closeModal} />;
       case "withdrawal":
-        return <Withdrawal onClick={closeModal} />;
+        return <Withdrawal closeModal={closeModal} />;
       default:
         return null;
     }

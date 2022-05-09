@@ -1,9 +1,6 @@
-import React, { useContext } from "react";
-import DataContext from "./../hooks/DataContext";
+import React from "react";
 
-function Timeline({ index }) {
-  const { data } = useContext(DataContext);
-
+function Timeline({ index, lastIndex }) {
   return (
     <div className="transaction__timeline">
       <div className={timelineCss()}></div>
@@ -12,11 +9,13 @@ function Timeline({ index }) {
   );
 
   function timelineCss() {
+    let str = "line";
     if (index === 0) {
-      return "line first-line";
-    } else if (data.lastIndex > 1 && index === data.lastIndex) {
-      return "line last-line";
-    } else return "line";
+      str += " first-line";
+    } else if (index === lastIndex) {
+      str += " last-line";
+    }
+    return str;
   }
 }
 
