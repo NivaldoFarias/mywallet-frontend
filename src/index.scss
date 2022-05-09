@@ -188,11 +188,11 @@ svg {
     left: 20px;
     right: 20px;
 
-    padding: 20px;
-    min-height: 350px;
+    padding: 30px 20px;
+    min-height: fit-content;
     max-width: 100%;
 
-    color: $dark-primary;
+    color: $primary;
 
     outline: none;
     overflow: hidden;
@@ -204,8 +204,12 @@ svg {
       position: absolute;
       top: 8px;
       right: 8px;
-
       font-size: 1.6em;
+      cursor: pointer;
+
+      * {
+        pointer-events: none;
+      }
     }
   }
   .overlay {
@@ -415,9 +419,13 @@ svg {
 
       border: none;
       outline: none;
-      cursor: pointer;
+      cursor: pointer !important;
       appearance: none;
       background-color: transparent;
+
+      * {
+        pointer-events: none;
+      }
     }
     &__transfer {
       height: 100px !important;
@@ -428,8 +436,17 @@ svg {
       background-color: $primary !important;
     }
   }
-}
+  .idle-text {
+    @include flex(column, center, center, 15px);
+    height: 100%;
+    line-height: 20px;
 
+    p {
+      text-align: center;
+      width: 85%;
+    }
+  }
+}
 #loading-dots {
   /* sourced from https://codepen.io/nzbin/pen/GGrXbp?editors=1100 (modified) */
   position: relative;

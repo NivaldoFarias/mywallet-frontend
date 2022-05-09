@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
-import { MdOutlineGroups } from "react-icons/md";
-import { IoExitOutline } from "react-icons/io5";
+import { MdOutlineGroups, MdOutlinePerson } from "react-icons/md";
+import { IoExitOutline, IoCloseSharp } from "react-icons/io5";
+import Modal from "react-modal";
 import axios from "axios";
 
 import Transaction from "./Transaction";
@@ -10,7 +11,9 @@ import DataContext from "./../hooks/DataContext";
 import logo from "./../assets/mywallet-logo.png";
 
 function Home() {
+  const [modalIsOpen, setIsOpen] = useState(false);
   const [current, setCurrent] = useState(0);
+  const [users, setUsers] = useState([]);
   const { data, setData } = useContext(DataContext);
   const CONFIG = {
     headers: {
@@ -54,10 +57,29 @@ function Home() {
       });
   }
 
+  function usersRequest() {
+    const URI = "http://localhost:5000/api/users/all";
+    const request = axios.get(URI, CONFIG);
+    request
+      .then((response) => {
+        setUsers([...response.data]);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }
+
   function buildHomePage() {
+    let amount = null;
+    let cents = null;
     const balance = data.balance.toString().replace(".", ",").split("");
-    const amount = balance.slice(0, 3).join("");
-    const cents = balance.slice(3, 5).join("");
+    if (data.balance * 1 === 0) {
+      amount = "0,";
+      cents = "00";
+    } else {
+      amount = balance.slice(0, 3).join("");
+      cents = balance.slice(3, 5).join("");
+    }
 
     return (
       <>
@@ -67,13 +89,33 @@ function Home() {
             <figcaption>Welcome, {data.user?.name}!</figcaption>
           </figure>
           <div className="icons-container">
-            <MdOutlineGroups className="users-icon" />
+            <MdOutlineGroups className="users-icon" onClick={openModal} />
             <IoExitOutline className="exit-icon" />
           </div>
+          <Modal
+            className="users-modal"
+            portalClassName="users-modal-portal"
+            overlayClassName="users-overlay"
+            isOpen={modalIsOpen}
+            onRequestClose={closeModal}
+            ariaHideApp={false}
+          >
+            <IoCloseSharp className="close-modal-btn" onClick={closeModal} />
+            <div className="users-container">
+              {users.map((user) => {
+                return (
+                  <figure key={user.email} className="user-container">
+                    <MdOutlinePerson />
+                    <p>{user.name}</p>
+                  </figure>
+                );
+              })}
+            </div>
+          </Modal>
         </nav>
         <section className="background-container">
           <div className="transactions-container">
-            {current ? (
+            {current.length > 0 ? (
               current.map((transaction, index) => {
                 return (
                   <Transaction
@@ -85,7 +127,10 @@ function Home() {
               })
             ) : (
               <>
-                <p>Carregando...</p>
+                <div className="idle-text">
+                  <p>There are no transactions yet!</p>
+                  <p>Create a new one by choosing one of the options below</p>
+                </div>
               </>
             )}
           </div>
@@ -100,6 +145,14 @@ function Home() {
         <Actions></Actions>
       </>
     );
+
+    function openModal() {
+      setIsOpen(true);
+    }
+
+    function closeModal() {
+      setIsOpen(false);
+    }
   }
 
   const homePage = buildHomePage();
