@@ -1,5 +1,9 @@
 import React, { useState } from "react";
 import Modal from "react-modal";
+import { IoCloseSharp } from "react-icons/io5";
+
+import Transfer from "./Transfer";
+
 function Actions() {
   const [modalIsOpen, setIsOpen] = useState(false);
 
@@ -20,15 +24,8 @@ function Actions() {
         contentLabel="Example Modal"
         ariaHideApp={false}
       >
-        <button onClick={closeModal}>close</button>
-        <div>I am a modal</div>
-        <form className="transfer-form">
-          <input />
-          <button>tab navigation</button>
-          <button>stays</button>
-          <button>inside</button>
-          <button>the modal</button>
-        </form>
+        <IoCloseSharp className="close-modal-btn" onClick={closeModal} />
+        <Transfer closeModal={closeModal} />
       </Modal>
       <button className="action-container__withdraw">
         <span>Withdraw</span>

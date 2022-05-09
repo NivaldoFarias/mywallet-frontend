@@ -4,7 +4,7 @@ import { IoExitOutline } from "react-icons/io5";
 import axios from "axios";
 
 import Transaction from "./Transaction";
-import Actions from "./Actions";
+import Actions from "./Actions/";
 
 import DataContext from "./../hooks/DataContext";
 import logo from "./../assets/mywallet-logo.png";
@@ -18,7 +18,7 @@ function Home() {
   };
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  useEffect(transactionRequest, []);
+  useEffect(transactionRequest, [data.update]);
 
   function transactionRequest() {
     const URI = "http://localhost:5000/api/transactions";

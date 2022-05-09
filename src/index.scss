@@ -104,7 +104,7 @@ svg {
       font-size: 15px;
       font-weight: 300;
 
-      color: $dark-primary;
+      color: $primary;
 
       pointer-events: none;
       transition: 0.2s ease all;
@@ -177,6 +177,44 @@ svg {
         background: transparent;
       }
     }
+  }
+}
+.modal-portal {
+  position: relative;
+  .modal {
+    @include flex(column, center, center, 30px);
+    position: absolute;
+    top: 25%;
+    left: 20px;
+    right: 20px;
+
+    padding: 20px;
+    min-height: 350px;
+    max-width: 100%;
+
+    color: $dark-primary;
+
+    outline: none;
+    overflow: hidden;
+    border-radius: 5px;
+    border: 1px solid rgb(204, 204, 204);
+    background-color: $background;
+
+    .close-modal-btn {
+      position: absolute;
+      top: 8px;
+      right: 8px;
+
+      font-size: 1.6em;
+    }
+  }
+  .overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(255, 255, 255, 0.75);
   }
 }
 #home-page {
@@ -391,31 +429,7 @@ svg {
     }
   }
 }
-.modal-portal {
-  position: relative;
-  .modal {
-    position: absolute;
-    top: 40px;
-    left: 40px;
-    right: 40px;
-    bottom: 40px;
 
-    padding: 20px;
-
-    border-radius: 5px;
-    border: 1px solid #ccc;
-    outline: none;
-    overflow: hidden;
-  }
-  .overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: rgba(255, 255, 255, 0.75);
-  }
-}
 #loading-dots {
   /* sourced from https://codepen.io/nzbin/pen/GGrXbp?editors=1100 (modified) */
   position: relative;

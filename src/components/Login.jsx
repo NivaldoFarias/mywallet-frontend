@@ -24,59 +24,53 @@ function Login() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  function buildLoginPage() {
+  function FormsGroup(props) {
     return (
-      <>
-        <figure>
-          <img src={logo} alt="logo" />
-          <figcaption>MyWallet</figcaption>
-        </figure>
-        <form
-          className="form-group"
-          onSubmit={(e) => {
-            e.preventDefault();
-            setHasSubmitted(true);
-            setTimeout(() => {
-              handleLogin();
-            }, getRandomInt(750, 2000));
-          }}
-        >
-          <div className="input-group">
-            <input
-              className={hasSubmitted ? "disabled" : ""}
-              type="text"
-              value={loginData.email}
-              name="email"
-              onChange={handleInputChange}
-              required
-            />
-            <span className="highlight"></span>
-            <span className="bar"></span>
-            <label>E-mail</label>
-          </div>
-          <div className="input-group">
-            <input
-              className={hasSubmitted ? "disabled" : ""}
-              type="password"
-              value={loginData.password}
-              name="password"
-              onChange={handleInputChange}
-              required
-            />
-            <span className="highlight"></span>
-            <span className="bar"></span>
-            <label>Password</label>
-          </div>
-          <button className={validateLogin()} type="submit">
-            <p className={hasSubmitted ? "hidden" : ""}>Sign In</p>
-            <div
-              id="loading-dots"
-              className={hasSubmitted ? "dot-pulse" : "dot-pulse hidden"}
-            ></div>
-          </button>
-          <Link to="/signup">Not yet registered? Sign up!</Link>
-        </form>
-      </>
+      <form
+        className="form-group"
+        onSubmit={(e) => {
+          e.preventDefault();
+          props.setHasSubmitted(true);
+          setTimeout(() => {
+            handleLogin();
+          }, getRandomInt(750, 2000));
+        }}
+      >
+        <div className="input-group">
+          <input
+            className={props.hasSubmitted ? "disabled" : ""}
+            type="text"
+            value={props.loginData.email}
+            name="email"
+            onChange={handleInputChange}
+            required
+          />
+          <span className="highlight"></span>
+          <span className="bar"></span>
+          <label>E-mail</label>
+        </div>
+        <div className="input-group">
+          <input
+            className={props.hasSubmitted ? "disabled" : ""}
+            type="password"
+            value={props.loginData.password}
+            name="password"
+            onChange={handleInputChange}
+            required
+          />
+          <span className="highlight"></span>
+          <span className="bar"></span>
+          <label>Password</label>
+        </div>
+        <button className={validateLogin()} type="submit">
+          <p className={props.hasSubmitted ? "hidden" : ""}>Sign In</p>
+          <div
+            id="loading-dots"
+            className={props.hasSubmitted ? "dot-pulse" : "dot-pulse hidden"}
+          ></div>
+        </button>
+        <Link to="/signup">Not yet registered? Sign up!</Link>
+      </form>
     );
 
     function validateLogin() {
@@ -139,6 +133,22 @@ function Login() {
         password: "",
       });
     }
+  }
+
+  function buildLoginPage() {
+    return (
+      <>
+        <figure>
+          <img src={logo} alt="logo" />
+          <figcaption>MyWallet</figcaption>
+        </figure>
+        <FormsGroup
+          loginData={loginData}
+          hasSubmitted={hasSubmitted}
+          setHasSubmitted={setHasSubmitted}
+        ></FormsGroup>
+      </>
+    );
   }
 
   const loginPage = buildLoginPage();
