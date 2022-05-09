@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { MdOutlineGroups } from "react-icons/md";
 import { IoExitOutline } from "react-icons/io5";
 import axios from "axios";
@@ -10,6 +10,7 @@ import DataContext from "./../hooks/DataContext";
 import logo from "./../assets/mywallet-logo.png";
 
 function Home() {
+  const [current, setCurrent] = useState(0);
   const { data, setData } = useContext(DataContext);
   const CONFIG = {
     headers: {
@@ -25,11 +26,12 @@ function Home() {
     const request = axios.get(URI, CONFIG);
     request
       .then((response) => {
+        setCurrent(response.data.reverse());
         setData({
           ...data,
-          transactions: response.data.reverse(),
           lastIndex: response.data.length - 1,
         });
+
         balanceRequest();
       })
       .catch((error) => {
@@ -71,15 +73,21 @@ function Home() {
         </nav>
         <section className="background-container">
           <div className="transactions-container">
-            {data.transactions?.map((transaction, index) => {
-              return (
-                <Transaction
-                  key={transaction._id}
-                  index={index}
-                  transaction={transaction}
-                />
-              );
-            })}
+            {current ? (
+              current.map((transaction, index) => {
+                return (
+                  <Transaction
+                    key={transaction._id}
+                    index={index}
+                    transaction={transaction}
+                  />
+                );
+              })
+            ) : (
+              <>
+                <p>Carregando...</p>
+              </>
+            )}
           </div>
           <div className="balance-container">
             <div className="balance-container__balance">

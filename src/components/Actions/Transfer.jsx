@@ -31,6 +31,7 @@ function Transfer({ closeModal }) {
         <input
           className={hasSubmitted ? "disabled" : ""}
           type="number"
+          autoComplete="off"
           value={transferData.amount}
           name="amount"
           onChange={handleInputChange}
