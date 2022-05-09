@@ -89,7 +89,7 @@ function EditTransaction({ closeModal, type, id }) {
       },
     };
     const request = axios.put(
-      `http://localhost:5000/api/transactions/update/${id}`,
+      `https://mywallet-full-stack-poc.herokuapp.com/api/transactions/update/${id}`,
       body,
       config
     );

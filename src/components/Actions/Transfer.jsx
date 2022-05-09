@@ -104,7 +104,7 @@ function Transfer({ closeModal }) {
       },
     };
     const request = axios.post(
-      "http://localhost:5000/api/transfers/new",
+      "https://mywallet-full-stack-poc.herokuapp.com/api/transfers/new",
       body,
       config
     );

@@ -29,7 +29,8 @@ function Home() {
   useEffect(transactionRequest, [data.update]);
 
   function transactionRequest() {
-    const URI = "http://localhost:5000/api/transactions";
+    const URI =
+      "https://mywallet-full-stack-poc.herokuapp.com/api/transactions";
     const request = axios.get(URI, CONFIG);
     request
       .then((response) => {
@@ -43,7 +44,8 @@ function Home() {
   }
 
   function balanceRequest() {
-    const URI = "http://localhost:5000/api/users/balance";
+    const URI =
+      "https://mywallet-full-stack-poc.herokuapp.com/api/users/balance";
     const request = axios.get(URI, CONFIG);
     request
       .then((response) => {
@@ -59,7 +61,7 @@ function Home() {
   }
 
   function usersRequest() {
-    const URI = "http://localhost:5000/api/users/all";
+    const URI = "https://mywallet-full-stack-poc.herokuapp.com/api/users/all";
     const request = axios.get(URI, CONFIG);
     request
       .then((response) => {
@@ -162,7 +164,8 @@ function Home() {
     );
 
     function requestSignOff() {
-      const URI = "http://localhost:5000/api/users/sign-off";
+      const URI =
+        "https://mywallet-full-stack-poc.herokuapp.com/api/users/sign-off";
       const request = axios.post(URI, {}, CONFIG);
       request
         .then(() => {

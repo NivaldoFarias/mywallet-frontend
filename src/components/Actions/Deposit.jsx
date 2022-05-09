@@ -89,7 +89,7 @@ function Deposit({ closeModal }) {
       },
     };
     const request = axios.post(
-      "http://localhost:5000/api/transactions/new",
+      "https://mywallet-full-stack-poc.herokuapp.com/api/transactions/new",
       body,
       config
     );

@@ -90,11 +90,14 @@ function SignUp() {
     function handleSignUp(e) {
       e.preventDefault();
 
-      const promise = axios.post("http://localhost:5000/api/auth/sign-up", {
-        name: formData.name,
-        email: formData.email,
-        password: formData.password,
-      });
+      const promise = axios.post(
+        "https://mywallet-full-stack-poc.herokuapp.com/api/auth/sign-up",
+        {
+          name: formData.name,
+          email: formData.email,
+          password: formData.password,
+        }
+      );
 
       promise.then((response) => {
         console.log(response);

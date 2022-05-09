@@ -160,9 +160,9 @@ function Transaction({ transaction, index, lastIndex }) {
     function requestDelete() {
       let URI = null;
       if (transaction.type) {
-        URI = `http://localhost:5000/api/transactions/delete/${transaction._id}`;
+        URI = `https://mywallet-full-stack-poc.herokuapp.com/api/transactions/delete/${transaction._id}`;
       } else {
-        URI = `http://localhost:5000/api/transfers/delete/${transaction._id}`;
+        URI = `https://mywallet-full-stack-poc.herokuapp.com/api/transfers/delete/${transaction._id}`;
       }
 
       const config = {

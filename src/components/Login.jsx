@@ -92,10 +92,13 @@ function Login() {
     }
 
     function handleLogin() {
-      const request = axios.post("http://localhost:5000/api/auth/sign-in", {
-        email: loginData.email,
-        password: loginData.password,
-      });
+      const request = axios.post(
+        "https://mywallet-full-stack-poc.herokuapp.com/api/auth/sign-in",
+        {
+          email: loginData.email,
+          password: loginData.password,
+        }
+      );
 
       request.then((response) => {
         setData({
