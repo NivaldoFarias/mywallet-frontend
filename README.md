@@ -17,7 +17,7 @@
 </div>
 
 ![Banner](https://github.com/NivaldoFarias/mywallet-frontend/blob/main/src/assets/mywalllet-showroom.png?raw=true)
- -->
+
 <!-- ABOUT THE PROJECT -->
 
 <!--
