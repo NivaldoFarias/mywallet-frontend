@@ -9,14 +9,14 @@
 <h3 align="center">MyWallet Project | Frontend</h3>
   <h6 align="center">WIP</h6>
   <p align="center">
-    Web Development Project using React and Sass
+    Full Stack Development Project using React and Sass
     <br />
     <a href="https://github.com/NivaldoFarias/mywallet-project-front/tree/main/src"><strong>JSX code»</strong></a>
     -
     <a href="https://github.com/NivaldoFarias/mywallet-project-front/blob/main/src/index.scss"><strong>SCSS code»</strong></a>
 </div>
 
-<!-- ![Banner](https://github.com/NivaldoFarias/mywallet-project-front/blob/main/src/assets/zaprecall-showroom.png?raw=true)
+![Banner](https://github.com/NivaldoFarias/mywallet-frontend/blob/main/src/assets/mywalllet-showroom.png?raw=true)
  -->
 <!-- ABOUT THE PROJECT -->
 
